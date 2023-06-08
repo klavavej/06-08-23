@@ -1,8 +1,8 @@
-import { stream } from "@netlify/functions";
-import type { ReadableStream } from "node:stream/web";
+const { stream } = require("@netlify/functions");
 
-export const handler = stream(async (event, context) => {
-  const body = new ReadableStream({
+
+exports.handler = stream(async (event, context) => ({
+  body: new ReadableStream({
     start(controller) {
       setTimeout(() => {
         controller.enqueue(new TextEncoder().encode("<p>First write</p>"));
@@ -23,13 +23,9 @@ export const handler = stream(async (event, context) => {
         controller.close();
       }, 5000);
     },
-  });
-
-  return {
-    statusCode: 200,
-    body,
-    headers: {
-      "content-type": "text/html",
-    },
-  };
-});
+  }); 
+  headers: {
+    "content-type": "text/html",
+  },
+  statusCode: 200,
+}));
