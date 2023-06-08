@@ -14,9 +14,7 @@ export const handler = stream(async (event, context) => {
         controller.enqueue(new TextEncoder().encode("<h2>Streaming h2</h2>"));
       }, 3000);
       setTimeout(() => {
-        controller.enqueue(
-          new TextEncoder().encode("<h3>Streaming h3</h3>")
-        );
+        controller.enqueue(new TextEncoder().encode("<h3>Streaming h3</h3>"));
       }, 4000);
       setTimeout(() => {
         controller.enqueue(new TextEncoder().encode("<p>DONE!</p>"));
