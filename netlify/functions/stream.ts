@@ -5,21 +5,21 @@ export const handler = stream(async (event, context) => {
   const body = new ReadableStream({
     start(controller) {
       setTimeout(() => {
-        controller.enqueue(new TextEncoder().encode("Tears stream\n"));
+        controller.enqueue(new TextEncoder().encode("<p>First write!</p>"));
       }, 1000);
       setTimeout(() => {
-        controller.enqueue(new TextEncoder().encode("down your face\n"));
+        controller.enqueue(new TextEncoder().encode("<h1>Streaming h1</h1>"));
       }, 2000);
       setTimeout(() => {
-        controller.enqueue(new TextEncoder().encode("i promise you\n"));
+        controller.enqueue(new TextEncoder().encode("<h2>Streaming h2</h2>"));
       }, 3000);
       setTimeout(() => {
         controller.enqueue(
-          new TextEncoder().encode("I will learn from my mistakes\n")
+          new TextEncoder().encode("<h3>Streaming h3</h3>")
         );
       }, 4000);
       setTimeout(() => {
-        controller.enqueue(new TextEncoder().encode("  (Coldplay - Fix You)\n"));
+        controller.enqueue(new TextEncoder().encode("<p>DONE!</p>"));
         controller.close();
       }, 5000);
     },
@@ -29,7 +29,7 @@ export const handler = stream(async (event, context) => {
     statusCode: 200,
     body,
     headers: {
-      "content-type": "text/lyrics",
+      "content-type": "text/html",
     },
   };
 });
